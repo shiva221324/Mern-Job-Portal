@@ -7,11 +7,16 @@ import userRoute from "./routes/user.route.js";
 import companyRoute from "./routes/company.route.js";
 import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
-
+import path from "path";
 dotenv.config({});
 
 const app = express();
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "/frontend/dist")));
 
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+});
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
